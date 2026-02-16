@@ -15,7 +15,6 @@ export const useCharacterLimit = (limit) => {
 
   return { text, handleChange };
 };
-
 const StatusDisplay = ({ text, limit }) => {
   const remaining = limit - text.length;
   const isWarning = remaining <= 10;

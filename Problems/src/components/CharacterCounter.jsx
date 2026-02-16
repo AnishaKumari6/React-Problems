@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
-
-// 1. Custom Hook with useEffect logic
 export const useCharacterLimit = (limit) => {
   const [text, setText] = useState("");
 
   useEffect(() => {
-    // Satisfying the useEffect requirement:
-    // This logs the status every time the user types.
     console.log(`Input updated. Current length: ${text.length}`);
   }, [text]);
 
   const handleChange = (e) => {
     const value = e.target.value;
-    // Requirement 4: Prevent typing beyond limit
     if (value.length <= limit) {
       setText(value);
     }
@@ -21,7 +16,6 @@ export const useCharacterLimit = (limit) => {
   return { text, handleChange };
 };
 
-// 2. Child Component using Props
 const StatusDisplay = ({ text, limit }) => {
   const remaining = limit - text.length;
   const isWarning = remaining <= 10;
@@ -31,7 +25,6 @@ const StatusDisplay = ({ text, limit }) => {
       <p>Characters: {text.length}</p>
       <p>Remaining: {remaining}</p>
       
-      {/* Requirement 3: Warning message */}
       {isWarning && remaining >= 0 && (
         <p style={{ color: 'red', display: 'flex', alignItems: 'center' }}>
           <span style={{ marginRight: '5px' }}>⚠</span> 
@@ -41,8 +34,6 @@ const StatusDisplay = ({ text, limit }) => {
     </div>
   );
 };
-
-// 3. The Functional Component to be called in App.jsx
 export const CharacterCounter = ({ limit = 50 }) => {
   const { text, handleChange } = useCharacterLimit(limit);
 

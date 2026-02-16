@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-// 1. Custom Hook for Syncing Logic
 export const useTemperatureSync = () => {
   const [celsius, setCelsius] = useState('');
   const [fahrenheit, setFahrenheit] = useState('');
-  const [lastChanged, setLastChanged] = useState(null); // 'C' or 'F'
+  const [lastChanged, setLastChanged] = useState(null); 
 
   useEffect(() => {
-    // Requirement: useEffect inside a custom hook for syncing logic
     if (lastChanged === 'C') {
       const c = parseFloat(celsius);
       if (!isNaN(c)) {
-        // Formula: (C * 9/5) + 32
         setFahrenheit(((c * 9) / 5 + 32).toFixed(2));
       } else {
         setFahrenheit('');
@@ -40,7 +37,6 @@ export const useTemperatureSync = () => {
   return { celsius, fahrenheit, handleCelsiusChange, handleFahrenheitChange };
 };
 
-// 2. Child Component using Props
 const ConverterUI = ({ celsius, fahrenheit, onCChange, onFChange }) => {
   return (
     <div style={{ fontFamily: 'sans-serif', lineHeight: '2' }}>
@@ -64,8 +60,6 @@ const ConverterUI = ({ celsius, fahrenheit, onCChange, onFChange }) => {
     </div>
   );
 };
-
-// 3. Main Exported Component
 export const TempConverterFeature = () => {
   const { celsius, fahrenheit, handleCelsiusChange, handleFahrenheitChange } = useTemperatureSync();
 

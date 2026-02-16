@@ -12,8 +12,6 @@ function useSearch(data) {
 
   return { query, setQuery, filteredData };
 }
-
-// Main Component
 function Sales({ products }) {
   const { query, setQuery, filteredData } = useSearch(products);
 

@@ -1,16 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 export const FocusTracker = () => {
-  // 1. State for the current input and the list of messages
   const [inputVal, setInputVal] = useState("");
   const [messages, setMessages] = useState([]);
   const [focusCount, setFocusCount] = useState(0);
-
-  // 2. Refs for focusing the input and tracking history (no re-render)
   const inputRef = useRef(null);
   const historyRef = useRef([]);
-
-  // 3. useEffect for side effects (logging or initialization)
   useEffect(() => {
     console.log("Component rendered. Focus count is:", focusCount);
   }, [focusCount]);
@@ -21,10 +16,7 @@ export const FocusTracker = () => {
 
   const handleSubmit = () => {
     if (inputVal.trim() !== "") {
-      // Update state (triggers re-render to show in list)
       setMessages((prev) => [...prev, inputVal]);
-      
-      // Update ref history (does NOT trigger re-render)
       historyRef.current.push(inputVal);
       
       setInputVal("");
@@ -32,7 +24,6 @@ export const FocusTracker = () => {
   };
 
   const focusInputProgrammatically = () => {
-    // Requirement: Use button to focus input programmatically
     inputRef.current.focus();
   };
 
@@ -61,8 +52,6 @@ export const FocusTracker = () => {
           <li key={idx}>- {msg}</li>
         ))}
       </ul>
-
-      {/* Requirement: History from Ref (shows persistence without being the render trigger) */}
       <p style={{ color: '#666', fontSize: '0.9em' }}>
         <strong>History in Ref (no re-render):</strong> {historyRef.current.join(", ")}
       </p>
